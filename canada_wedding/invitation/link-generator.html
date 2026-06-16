@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Invitation Link Generator · Ashwin weds Amartha</title>
+
+<!-- ============================================================
+     INVITATION LINK GENERATOR
+     A tiny internal tool (not for guests) to mint personalized
+     wedding-invitation links.
+
+     ┌─────────────────────────────────────────────────────────┐
+     │  HOW TO ADD / REMOVE A FORM FIELD:                        │
+     │   Edit the FIELDS array below. Each entry's `param` is    │
+     │   BOTH the form label AND the query-param key on the      │
+     │   invitation page — so the form stays in lockstep with    │
+     │   whatever params the invitation grows to read.           │
+     │                                                           │
+     │   Field shape:                                            │
+     │     { param: "to",            // query key + label source │
+     │       label: "Guest name",    // shown in the form        │
+     │       placeholder: "...",     // input hint               │
+     │       required: true }        // must be filled to gen    │
+     ├─────────────────────────────────────────────────────────┤
+     │  BASE_URL points at the invitation page the link opens.   │
+     └─────────────────────────────────────────────────────────┘
+     ============================================================ -->
+
+<style>
+  :root {
+    --green:  #2f6f3e;
+    --green-d:#244f2e;
+    --pink:   #e89aae;
+    --pink-s: #f6dde4;
+    --gold:   #c9a14a;
+    --gold-d: #a07d2c;
+    --bg:     #faf7f2;
+    --cream:  #fffdf8;
+    --ink:    #2a2c2a;
+    --muted:  #6b6f68;
+    --line:   #e7e0d2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    line-height: 1.6; -webkit-font-smoothing: antialiased; padding: 32px 18px;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; }
+  .card {
+    background: var(--cream); border: 1px solid var(--line);
+    border-radius: 18px; padding: 30px 26px; box-shadow: 0 10px 30px rgba(0,0,0,.06);
+  }
+  .eyebrow { text-transform: uppercase; letter-spacing: .28em; font-size: 11px;
+    color: var(--gold-d); margin: 0 0 6px; }
+  h1 { font-family: Georgia, "Cormorant Garamond", serif; font-weight: 500;
+    color: var(--green-d); font-size: 28px; margin: 0 0 4px; }
+  .lede { color: var(--muted); font-size: 14px; margin: 0 0 24px; }
+
+  .field { margin-bottom: 18px; }
+  label { display: block; font-size: 13px; font-weight: 600; letter-spacing: .02em;
+    color: var(--green-d); margin-bottom: 6px; }
+  label .req { color: var(--pink); margin-left: 3px; }
+  label .key { color: var(--muted); font-weight: 400; font-size: 11px;
+    letter-spacing: .08em; text-transform: uppercase; margin-left: 6px; }
+  input[type="text"] {
+    width: 100%; padding: 11px 14px; font-size: 15px; font-family: inherit;
+    color: var(--ink); background: #fff; border: 1px solid var(--line);
+    border-radius: 10px; transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  input[type="text"]:focus { outline: none; border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(47,111,62,.12); }
+  input.invalid { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(232,154,174,.18); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+    font-family: inherit; font-weight: 500; font-size: 14px; letter-spacing: .06em;
+    text-transform: uppercase; padding: 13px 24px; border-radius: 999px;
+    border: 1px solid var(--green); background: var(--green); color: #fff;
+    box-shadow: 0 6px 18px rgba(47,111,62,.22);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(47,111,62,.30); }
+  .btn:active { transform: translateY(0); }
+
+  .result { margin-top: 22px; display: none; }
+  .result.show { display: block; }
+  .result label { color: var(--muted); }
+  .result .url {
+    width: 100%; padding: 12px 14px; font-size: 13px; font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    color: var(--ink); background: #fff; border: 1px dashed var(--gold); border-radius: 10px;
+    word-break: break-all; cursor: text;
+  }
+  .result .row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+  .btn.ghost { background: transparent; color: var(--green); box-shadow: none; }
+  .btn.ghost:hover { background: rgba(47,111,62,.07); }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(120%);
+    background: var(--green-d); color: #fff; padding: 12px 22px; border-radius: 999px;
+    font-size: 14px; letter-spacing: .04em; box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    z-index: 50; transition: transform .35s ease;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <p class="eyebrow">Ashwin weds Amartha · internal tool</p>
+    <h1>Invitation Link Generator</h1>
+    <p class="lede">Fill in the details, generate a personalized invitation link, and it's copied to your clipboard — ready to paste into WhatsApp, email, or a text.</p>
+
+    <form id="gen-form" novalidate>
+      <div id="fields"></div>
+      <button type="submit" class="btn">Generate &amp; Copy Link</button>
+    </form>
+
+    <div class="result" id="result">
+      <label>Your link</label>
+      <div class="url" id="url-out"></div>
+      <div class="row">
+        <button type="button" class="btn ghost" id="copy-again">Copy again</button>
+        <a class="btn ghost" id="open-link" href="#" target="_blank" rel="noopener">Preview ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   CONFIG — edit FIELDS and BASE_URL; nothing else needs changing.
+   ============================================================ */
+
+// The invitation page the generated link opens.
+// 👉 CHANGE THIS if the invitation ever moves to a new host/path.
+const ROOT_URL = "https://shareable.ashwix1997.workers.dev/canada_wedding/invitation/index-plain";
+
+// Each entry: `param` is the query-param key AND the source of truth.
+// Add/remove fields here as the invitation grows to read more params.
+const FIELDS = [
+  {
+    param: "to",
+    label: "Guest name",
+    placeholder: "e.g. The Sharma Family",
+    required: true,
+  },
+  // Future params slot in here, e.g.:
+  // { param: "lang", label: "Language", placeholder: "en / ta", required: false },
+];
+
+/* ============================================================
+   Wiring (no need to edit below)
+   ============================================================ */
+(function () {
+  const fieldsRoot = document.getElementById("fields");
+  const form = document.getElementById("gen-form");
+  const result = document.getElementById("result");
+  const urlOut = document.getElementById("url-out");
+  const openLink = document.getElementById("open-link");
+  const toast = document.getElementById("toast");
+
+  // ---- Render form fields from FIELDS ----
+  FIELDS.forEach(f => {
+    const wrap = document.createElement("div");
+    wrap.className = "field";
+    const id = "f-" + f.param;
+    wrap.innerHTML =
+      '<label for="' + id + '">' + escapeHtml(f.label) +
+        (f.required ? '<span class="req">*</span>' : '') +
+        '<span class="key">?' + escapeHtml(f.param) + '</span></label>' +
+      '<input type="text" id="' + id + '" data-param="' + escapeHtml(f.param) + '"' +
+        ' placeholder="' + escapeHtml(f.placeholder || "") + '"' +
+        (f.required ? ' data-required="1"' : '') + ' />';
+    fieldsRoot.appendChild(wrap);
+  });
+
+  // ---- Build the link from current input values ----
+  function buildUrl() {
+    const params = new URLSearchParams();
+    fieldsRoot.querySelectorAll("input[data-param]").forEach(input => {
+      const val = input.value.trim();
+      if (val) params.set(input.dataset.param, val);
+    });
+    const qs = params.toString();
+    // Resolve against the current location so the preview link is absolute.
+    const abs = new URL(ROOT_URL, window.location.href);
+    abs.search = qs;
+    return abs.toString();
+  }
+
+  // ---- Validate required fields ----
+  function validate() {
+    let ok = true;
+    fieldsRoot.querySelectorAll("input[data-required]").forEach(input => {
+      if (!input.value.trim()) { input.classList.add("invalid"); ok = false; }
+      else input.classList.remove("invalid");
+    });
+    return ok;
+  }
+
+  // ---- Copy to clipboard with a graceful fallback ----
+  async function copy(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      // Fallback for non-secure contexts (e.g. file://)
+      const ta = document.createElement("textarea");
+      ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      let ok = false;
+      try { ok = document.execCommand("copy"); } catch (_) {}
+      document.body.removeChild(ta);
+      return ok;
+    }
+  }
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2200);
+  }
+
+  async function generate() {
+    if (!validate()) { showToast("Please fill in the required fields"); return; }
+    const url = buildUrl();
+    urlOut.textContent = url;
+    openLink.href = url;
+    result.classList.add("show");
+    const copied = await copy(url);
+    showToast(copied ? "Link generated & copied ✓" : "Link generated (copy manually)");
+  }
+
+  form.addEventListener("submit", e => { e.preventDefault(); generate(); });
+  document.getElementById("copy-again").addEventListener("click", async () => {
+    const url = urlOut.textContent;
+    if (!url) return;
+    const copied = await copy(url);
+    showToast(copied ? "Copied ✓" : "Copy failed — select manually");
+  });
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+})();
+</script>
+</body>
+</html>
