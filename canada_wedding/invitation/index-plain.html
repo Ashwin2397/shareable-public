@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ashwin weds Amartha · October 25, 2026</title>
+<meta name="description" content="Join us as we celebrate the wedding of Ashwin & Amartha — Sunday, October 25, 2026, in Milton, Ontario." />
+
+<!-- ============================================================
+     ASHWIN ❀ AMARTHA — WEDDING HUB
+     A single, self-contained, host-agnostic page that lives at ONE
+     stable URL. Guests bookmark it once and return to it before,
+     during, and after the wedding for the latest information.
+
+     ┌─────────────────────────────────────────────────────────┐
+     │  HOW IT EVOLVES — just edit CONFIG.mode (the "phase").    │
+     │   "save-the-date" → lean teaser (send ~Jul 15)            │
+     │   "formal"        → full invite: itinerary, travel, RSVP  │
+     │   "live"          → day-of: "Happening now" + updates top │
+     │   "post"          → thank-you + photo / video galleries   │
+     │  Each phase progressively reveals more of the page.       │
+     ├─────────────────────────────────────────────────────────┤
+     │  POSTING UPDATES (the "keep up with updates" feature):    │
+     │   Add a new object to the TOP of CONFIG.updates[].        │
+     │   Set pinned:true to float one to the very top.           │
+     │   (Hardcoded for now — a live source can be wired later.) │
+     ├─────────────────────────────────────────────────────────┤
+     │  Fill every value tagged // TODO before publishing.       │
+     │  CONFIG.showTodos = true highlights unfilled placeholders.│
+     └─────────────────────────────────────────────────────────┘
+
+     DISTRIBUTION (not built into page):
+       • One stable URL → WhatsApp broadcast + email BCC blast.
+       • Per-guest greeting: append ?to=Guest%20Name to the URL.
+       • Printed cards for elders handled separately (print vendor).
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&family=Noto+Serif+Tamil:wght@500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --green:  #2f6f3e;
+    --green-d:#244f2e;
+    --pink:   #e89aae;
+    --pink-s: #f6dde4;
+    --gold:   #c9a14a;
+    --gold-d: #a07d2c;
+    --bg:     #faf7f2;
+    --cream:  #fffdf8;
+    --ink:    #2a2c2a;
+    --muted:  #6b6f68;
+    --line:   #e7e0d2;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Jost", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, .serif { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; }
+  .tamil { font-family: "Noto Serif Tamil", "Latha", serif; }
+  a { color: var(--green); }
+
+  /* ---------- TODO placeholder styling (toggle via CONFIG.showTodos) ---------- */
+  .todo { font-style: italic; }
+  body.show-todos .todo {
+    background: #fff3bf; outline: 1px dashed var(--gold-d);
+    padding: 0 4px; border-radius: 3px; font-style: normal;
+  }
+  body.show-todos .todo::before { content: "✎ "; color: var(--gold-d); }
+
+  /* ---------- phase visibility ----------
+     Elements carry data-phase. JS hides any that don't match the
+     current CONFIG.mode. Rules: "formal" (exact), "formal+" (that
+     phase onward), "formal,live" (list), "pre" (everything but post). */
+  [data-phase] { } /* shown unless JS hides it */
+
+  /* ---------- live banner ---------- */
+  .livebar { position: sticky; top: 0; z-index: 40; background: var(--green-d); color: #fff;
+    text-align: center; padding: 11px 16px; font-size: 14px; letter-spacing: .04em;
+    box-shadow: 0 2px 10px rgba(0,0,0,.18); }
+  .livebar b { color: var(--gold); font-weight: 500; }
+
+  /* ---------- decorative divider ---------- */
+  .divider { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 6px 0 4px; color: var(--gold); }
+  .divider::before, .divider::after { content: ""; height: 1px; width: 54px; background: linear-gradient(90deg, transparent, var(--gold)); }
+  .divider::after { background: linear-gradient(90deg, var(--gold), transparent); }
+  .divider span { font-size: 17px; letter-spacing: .2em; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative; min-height: 100svh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 64px 22px 48px;
+    background:
+      radial-gradient(1200px 520px at 50% -8%, var(--pink-s), transparent 60%),
+      radial-gradient(900px 480px at 50% 108%, #e6efe2, transparent 60%),
+      var(--cream);
+    overflow: hidden;
+  }
+  .hero .corner { position: absolute; width: 160px; height: 160px; opacity: .5; pointer-events: none; }
+  .hero .corner.tl { top: 0; left: 0; }
+  .hero .corner.tr { top: 0; right: 0; transform: scaleX(-1); }
+  .hero .corner.bl { bottom: 0; left: 0; transform: scaleY(-1); }
+  .hero .corner.br { bottom: 0; right: 0; transform: scale(-1,-1); }
+  @media (max-width: 560px){ .hero .corner { width: 104px; height: 104px; } }
+
+  .invocation { font-family: "Noto Serif Tamil", "Latha", serif; color: var(--gold-d); font-size: 16px; letter-spacing: .02em; margin: 0 0 16px; }
+  .eyebrow { text-transform: uppercase; letter-spacing: .42em; font-size: 12px; color: var(--gold-d); margin: 0 0 6px; }
+  .eyebrow.tamil { letter-spacing: .04em; font-size: 16px; color: var(--green); }
+  .names { font-size: clamp(48px, 13vw, 104px); line-height: .98; margin: 6px 0 2px; color: var(--green-d); }
+  .names .amp { display: block; font-style: italic; font-size: clamp(26px, 7vw, 52px); color: var(--gold); font-weight: 400; margin: 2px 0; }
+  .names-tamil { font-size: clamp(17px, 4.6vw, 24px); color: var(--pink); margin: 2px 0 0; }
+  .hero .when { margin: 22px 0 4px; font-size: clamp(16px, 4.4vw, 21px); letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+  .hero .where { font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+  /* ---------- buttons ---------- */
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 30px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+    font-family: "Jost", sans-serif; font-weight: 400; font-size: 14px;
+    letter-spacing: .12em; text-transform: uppercase; text-decoration: none;
+    padding: 13px 26px; border-radius: 999px; border: 1px solid var(--green);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn.primary { background: var(--green); color: #fff; box-shadow: 0 6px 18px rgba(47,111,62,.22); }
+  .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(47,111,62,.30); }
+  .btn.ghost { background: transparent; color: var(--green); }
+  .btn.ghost:hover { background: rgba(47,111,62,.07); transform: translateY(-2px); }
+
+  /* ---------- add-to-calendar menu ---------- */
+  .cal-wrap { position: relative; display: inline-block; }
+  .cal-menu { position: absolute; left: 50%; transform: translateX(-50%); top: calc(100% + 8px);
+    background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,.16);
+    padding: 6px; min-width: 210px; display: none; z-index: 30; text-align: left; }
+  .cal-menu.open { display: block; }
+  .cal-menu.up { top: auto; bottom: calc(100% + 8px); }
+  .cal-menu a { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 8px;
+    text-decoration: none; color: var(--ink); font-size: 14px; letter-spacing: .02em; }
+  .cal-menu a:hover { background: var(--bg); }
+  .cal-menu .ci { width: 18px; text-align: center; }
+
+  .scroll-hint { margin-top: 38px; font-size: 22px; color: var(--gold); animation: bob 2.4s ease-in-out infinite; }
+  @keyframes bob { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(7px);} }
+
+  /* ---------- sections ---------- */
+  section.block { max-width: 720px; margin: 0 auto; padding: 64px 24px; text-align: center; }
+  section.block h2 { font-size: clamp(28px, 7vw, 40px); color: var(--green-d); margin: 10px 0 4px; }
+  section.block .sub { color: var(--muted); font-size: 14px; letter-spacing: .14em; text-transform: uppercase; margin: 0; }
+  .invite-line { font-size: clamp(22px, 5.4vw, 32px); line-height: 1.45; color: var(--green-d); max-width: 560px; margin: 18px auto 0; font-style: italic; }
+  .invite-line .guest { font-style: normal; color: var(--gold-d); white-space: nowrap; }
+  .families { margin: 28px auto 0; max-width: 560px; }
+  .families .fam-couple { font-family: "Cormorant Garamond", serif; font-size: 23px; color: var(--green-d); margin: 0; }
+  .families .fam-parents { color: var(--muted); font-size: 14px; margin: 2px 0 0; }
+  .families .fam-amp { color: var(--gold); font-size: 18px; margin: 12px 0; }
+  .lead-2 { font-size: 17px; max-width: 480px; margin: 14px auto 0; color: var(--ink); }
+  .bless-en { color: var(--muted); font-style: italic; font-size: 14px; margin: 2px 0 0; }
+  .rsvp-contact { margin-top: 16px; font-size: 14px; color: #dce8d6; }
+  .rsvp-contact a { color: #fff; text-decoration: underline; }
+  .stay-list { list-style: none; padding: 0; margin: 22px auto 0; max-width: 460px; text-align: left; display: grid; gap: 14px; }
+  .stay-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; color: var(--ink);
+    background: var(--cream); border: 1px solid var(--line); border-left: 4px solid var(--gold);
+    border-radius: 12px; padding: 13px 16px; box-shadow: 0 4px 14px rgba(0,0,0,.04); }
+  .stay-list .ic { font-size: 18px; line-height: 1.5; }
+  .alt { background: linear-gradient(180deg, #fff, var(--cream)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  /* ---------- countdown ---------- */
+  .count { display: flex; gap: 14px; justify-content: center; margin-top: 26px; }
+  .count .cell { min-width: 72px; }
+  .count .num { font-family: "Cormorant Garamond", serif; font-size: clamp(34px, 9vw, 52px); color: var(--gold-d); line-height: 1; }
+  .count .lbl { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  /* ---------- updates feed ---------- */
+  .updates { display: grid; gap: 14px; margin-top: 26px; text-align: left; }
+  .update { background: var(--cream); border: 1px solid var(--line); border-left: 4px solid var(--gold);
+    border-radius: 12px; padding: 14px 18px; box-shadow: 0 4px 14px rgba(0,0,0,.04); }
+  .update.pinned { border-left-color: var(--pink); background: #fff8fb; }
+  .update .pin { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--pink); margin-bottom: 2px; }
+  .update .when { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-d); }
+  .update h3 { margin: 3px 0 5px; font-size: 21px; color: var(--green-d); }
+  .update p { margin: 0; font-size: 15px; color: var(--ink); }
+
+  /* ---------- timeline / schedule ---------- */
+  .sched-day { font-family: "Cormorant Garamond", serif; font-size: 23px; color: var(--gold-d); margin: 30px 0 2px; }
+  .timeline { list-style: none; padding: 0; margin: 18px auto 0; max-width: 460px; text-align: left; }
+  .timeline li { position: relative; padding: 0 0 26px 64px; }
+  .timeline li::before {
+    content: ""; position: absolute; left: 21px; top: 4px; bottom: -4px; width: 2px;
+    background: linear-gradient(var(--gold), var(--pink)); }
+  .timeline li:last-child::before { display: none; }
+  .timeline .dot { position: absolute; left: 12px; top: 2px; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--cream); border: 2px solid var(--gold); display: grid; place-items: center; font-size: 11px; }
+  .timeline .t { font-family: "Cormorant Garamond", serif; font-size: 22px; color: var(--green); line-height: 1.1; }
+  .timeline .d { color: var(--ink); font-size: 15px; }
+  .timeline .d small { display: block; color: var(--muted); font-size: 13px; }
+  .timeline li.now .dot { border-color: var(--pink); background: var(--pink); color: #fff; box-shadow: 0 0 0 4px var(--pink-s); }
+  .timeline li.now .t { color: var(--pink); }
+  .now-badge { display: inline-block; font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: #fff; background: var(--pink); padding: 2px 8px; border-radius: 999px; margin-left: 8px; vertical-align: middle; }
+
+  /* ---------- info cards ---------- */
+  .cards { display: grid; gap: 16px; margin-top: 28px; grid-template-columns: 1fr; text-align: left; }
+  @media (min-width: 620px){ .cards.two { grid-template-columns: 1fr 1fr; } }
+  .card { background: var(--cream); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; }
+  .card h3 { margin: 0 0 6px; font-size: 22px; color: var(--green-d); }
+  .card p { margin: 4px 0; font-size: 15px; }
+  .card .label { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-d); }
+
+  /* ---------- map ---------- */
+  .mapwrap { margin-top: 24px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+  .mapwrap iframe { display: block; width: 100%; height: 300px; border: 0; }
+
+  /* ---------- rsvp ---------- */
+  .rsvp { background:
+      radial-gradient(700px 300px at 50% 120%, var(--pink-s), transparent 60%), var(--green-d);
+    color: #fdfaf3; }
+  .rsvp h2 { color: #fff; }
+  .rsvp .sub { color: #cfe0cb; }
+  .rsvp p.lead { font-size: 17px; max-width: 460px; margin: 14px auto 0; color: #eef4ea; font-weight: 300; }
+  .rsvp .btn.primary { background: var(--gold); border-color: var(--gold); color: #2a2410; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+  .rsvp .btn.primary:hover { background: #d8b25e; }
+  .rsvp .cutoff { margin-top: 18px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: #cfe0cb; }
+
+  /* ---------- thank-you (post) ---------- */
+  .thanks .btn.primary { background: var(--gold); border-color: var(--gold); color: #2a2410; }
+
+  /* ---------- footer ---------- */
+  footer { text-align: center; padding: 48px 24px 60px; background: var(--cream); }
+  footer .bless { font-family: "Noto Serif Tamil", serif; color: var(--green); font-size: 18px; }
+  footer .sig { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 26px; color: var(--gold-d); margin-top: 6px; }
+  footer .fine { color: var(--muted); font-size: 12px; margin-top: 14px; letter-spacing: .06em; }
+
+  /* ---------- reveal animation ---------- */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce){ .reveal { opacity: 1; transform: none; } .scroll-hint{ animation: none; } }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(120%);
+    background: var(--green-d); color: #fff; padding: 12px 20px; border-radius: 999px;
+    font-size: 14px; letter-spacing: .04em; box-shadow: 0 8px 24px rgba(0,0,0,.25); z-index: 50;
+    transition: transform .35s ease; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+
+<body>
+
+<!-- ======================= HERO ======================= -->
+<header class="hero">
+  <svg class="corner tl" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#c9a14a" stroke-width="1.4">
+    <path d="M2 50 C2 24 24 2 50 2"/><path d="M2 38 C2 18 18 2 38 2"/></g>
+    <g fill="#e89aae"><circle cx="50" cy="2" r="3"/><circle cx="2" cy="50" r="3"/><circle cx="26" cy="26" r="4.5"/></g>
+    <g fill="#2f6f3e"><circle cx="14" cy="40" r="2.4"/><circle cx="40" cy="14" r="2.4"/></g></svg>
+  <svg class="corner tr" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#c9a14a" stroke-width="1.4">
+    <path d="M2 50 C2 24 24 2 50 2"/><path d="M2 38 C2 18 18 2 38 2"/></g>
+    <g fill="#e89aae"><circle cx="50" cy="2" r="3"/><circle cx="2" cy="50" r="3"/><circle cx="26" cy="26" r="4.5"/></g>
+    <g fill="#2f6f3e"><circle cx="14" cy="40" r="2.4"/><circle cx="40" cy="14" r="2.4"/></g></svg>
+  <svg class="corner bl" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#c9a14a" stroke-width="1.4">
+    <path d="M2 50 C2 24 24 2 50 2"/><path d="M2 38 C2 18 18 2 38 2"/></g>
+    <g fill="#e89aae"><circle cx="50" cy="2" r="3"/><circle cx="2" cy="50" r="3"/><circle cx="26" cy="26" r="4.5"/></g>
+    <g fill="#2f6f3e"><circle cx="14" cy="40" r="2.4"/><circle cx="40" cy="14" r="2.4"/></g></svg>
+  <svg class="corner br" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#c9a14a" stroke-width="1.4">
+    <path d="M2 50 C2 24 24 2 50 2"/><path d="M2 38 C2 18 18 2 38 2"/></g>
+    <g fill="#e89aae"><circle cx="50" cy="2" r="3"/><circle cx="2" cy="50" r="3"/><circle cx="26" cy="26" r="4.5"/></g>
+    <g fill="#2f6f3e"><circle cx="14" cy="40" r="2.4"/><circle cx="40" cy="14" r="2.4"/></g></svg>
+
+  <p class="invocation tamil">ஶ்ரீ விநாயகர் துணை</p>
+
+  <p class="eyebrow" data-phase="save-the-date">Save the Date</p>
+  <p class="eyebrow tamil" data-phase="save-the-date">நாளை குறித்து வையுங்கள்</p>
+  <p class="eyebrow" data-phase="formal">Together with our families, we invite you</p>
+  <p class="eyebrow" data-phase="live">Today, we marry</p>
+  <p class="eyebrow" data-phase="post">Married · 25 . 10 . 2026</p>
+
+  <h1 class="names">Ashwin<span class="amp">weds</span>Amartha</h1>
+  <p class="names-tamil tamil">அஷ்வின் &nbsp;❀&nbsp; அமர்தா</p>
+
+  <div class="divider" style="margin-top:22px"><span>❦</span></div>
+
+  <p class="when">Sunday · October 25, 2026</p>
+  <p class="where">Milton, Ontario · Canada</p>
+
+  <div class="cta-row">
+    <a class="btn primary" href="#rsvp" data-phase="pre">RSVP</a>
+    <span class="cal-wrap" data-phase="pre">
+      <button class="btn ghost" id="cal-btn" type="button" aria-haspopup="true" aria-expanded="false">Add to Calendar ▾</button>
+      <div class="cal-menu" id="cal-menu" role="menu">
+        <a id="cal-apple"   href="#" role="menuitem"><span class="ci"></span> Apple Calendar</a>
+        <a id="cal-google"  href="#" target="_blank" rel="noopener" role="menuitem"><span class="ci">📅</span> Google Calendar</a>
+        <a id="cal-outlook" href="#" target="_blank" rel="noopener" role="menuitem"><span class="ci">📨</span> Outlook</a>
+      </div>
+    </span>
+    <a class="btn primary" href="#thanks" data-phase="post">View Photos</a>
+  </div>
+
+  <div class="scroll-hint">❧</div>
+</header>
+
+<!-- ======================= INVITATION ======================= -->
+<section class="block reveal">
+  <div class="divider"><span>❦</span></div>
+  <p class="invite-line serif" id="invite-line">
+    Together with our families, we would like to cordially invite you<span id="invite-name"></span>
+    to seek your blessings as we begin our life together.
+  </p>
+
+  <div class="families">
+    <p class="fam-couple">Amarthavalli</p>
+    <p class="fam-parents">Daughter of Maximilian M. &amp; Chiranjeevi Vijayalakshmi</p>
+    <div class="fam-amp">❀</div>
+    <p class="fam-couple">Ashwin Selvakumar</p>
+    <p class="fam-parents">Son of Selvakumar Ramasamy &amp; Rajini Selvakumar</p>
+  </div>
+</section>
+
+<!-- ======================= UPDATES FEED ======================= -->
+<!-- Visible once mode is "formal" or later, and only if CONFIG.updates has entries. -->
+<section class="block reveal" id="updates-section" data-phase="formal+">
+  <div class="divider"><span>✦</span></div>
+  <p class="sub">Latest news</p>
+  <h2>Updates</h2>
+  <div class="updates" id="updates"></div>
+</section>
+
+<!-- ======================= COUNTDOWN ======================= -->
+<section class="block reveal" data-phase="pre">
+  <div class="divider"><span>❀</span></div>
+  <p class="sub">Counting down to</p>
+  <h2>The Big Day</h2>
+  <div class="count" id="countdown" aria-live="polite">
+    <div class="cell"><div class="num" data-c="days">—</div><div class="lbl">Days</div></div>
+    <div class="cell"><div class="num" data-c="hours">—</div><div class="lbl">Hours</div></div>
+    <div class="cell"><div class="num" data-c="mins">—</div><div class="lbl">Minutes</div></div>
+    <div class="cell"><div class="num" data-c="secs">—</div><div class="lbl">Seconds</div></div>
+  </div>
+</section>
+
+<!-- ======================= THE CELEBRATION / ITINERARY ======================= -->
+<section class="block alt reveal">
+  <div class="divider"><span>முகூர்த்தம்</span></div>
+  <p class="sub">The schedule</p>
+  <h2>The Celebration</h2>
+
+  <!-- save-the-date: teaser only -->
+  <p data-phase="save-the-date" style="max-width:460px;margin:14px auto 0;color:var(--muted)">
+    An evening of Tamil tradition, dinner and dancing in Milton. The full schedule
+    and all the details will arrive soon.
+  </p>
+
+  <!-- formal onward: full schedule, rendered from CONFIG.schedule -->
+  <div id="schedule" data-phase="formal+"></div>
+</section>
+
+<!-- ======================= VENUE ======================= -->
+<section class="block reveal">
+  <div class="divider"><span>❦</span></div>
+  <p class="sub">Where</p>
+  <h2>The Venue</h2>
+
+  <!-- save-the-date: venue name + city + map (full street address comes with the formal invite) -->
+  <div data-phase="save-the-date">
+    <p class="lead-2" style="margin-top:14px">
+      <strong style="color:var(--green-d)">Mirage Banquet &amp; Convention Centre</strong><br/>
+      Milton, Ontario · Canada
+    </p>
+    <p style="margin-top:16px">
+      <a class="btn ghost" id="map-std" href="#" target="_blank" rel="noopener" style="padding:10px 20px">Open in Maps ↗</a>
+    </p>
+  </div>
+
+  <!-- formal onward: full venue card + map -->
+  <div class="cards" data-phase="formal+">
+    <div class="card">
+      <p class="label">Banquet Hall</p>
+      <h3 class="todo" data-cfg="venueName">Venue name — to confirm</h3>
+      <p class="todo" data-cfg="venueAddress">Street address, Milton, Ontario — to confirm</p>
+      <p style="margin-top:12px">
+        <a class="btn ghost" id="map-btn" href="#" target="_blank" rel="noopener" style="padding:10px 20px">Open in Maps ↗</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="mapwrap" id="mapwrap" data-phase="formal,live"><!-- map iframe injected by CONFIG --></div>
+</section>
+
+<!-- ======================= STAY TUNED (save-the-date only) ======================= -->
+<section class="block reveal" data-phase="save-the-date">
+  <div class="divider"><span>❧</span></div>
+  <p class="sub">Your wedding home base</p>
+  <h2>Stay Tuned</h2>
+  <ul class="stay-list">
+    <li><span class="ic">📅</span> <span>The full wedding itinerary will be shared here soon.</span></li>
+    <li><span class="ic">✨</span> <span>We'll post updates here as the big day approaches — and live on the day itself, as the celebration unfolds.</span></li>
+    <li><span class="ic">🔖</span> <span>Bookmark this page to keep up with everything in one place.</span></li>
+  </ul>
+</section>
+
+<!-- ======================= TRAVEL & STAY ======================= -->
+<section class="block alt reveal" data-phase="formal,live">
+  <div class="divider"><span>❀</span></div>
+  <p class="sub">For our out-of-town guests</p>
+  <h2>Travel &amp; Stay</h2>
+
+  <div class="cards two">
+    <div class="card">
+      <p class="label">Room Block</p>
+      <h3>Where to stay</h3>
+      <p>We've arranged a group rate at a hotel near the venue.</p>
+      <p style="margin-top:8px"><span class="label">Booking code</span><br/>
+        <strong class="todo" data-cfg="hotelCode">Hotel + group code — to confirm</strong></p>
+    </div>
+    <div class="card">
+      <p class="label">Getting there</p>
+      <h3>Parking</h3>
+      <p class="todo" data-cfg="parkingNote">Parking details — to confirm (free on-site / valet / lot nearby)</p>
+      <p style="margin-top:8px"><span class="label">Dress code</span><br/>
+        <span class="todo" data-cfg="dressCode">Dress code — to confirm (e.g. Indian festive / formal)</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= RSVP ======================= -->
+<section class="block rsvp reveal" id="rsvp" data-phase="pre">
+  <div class="divider"><span style="color:var(--gold)">❧</span></div>
+  <p class="sub">Kindly reply</p>
+  <h2>RSVP</h2>
+  <p class="lead">Your presence is the greatest gift. Please let us know if you can
+    join us so we can save you a seat at the celebration.</p>
+  <div class="cta-row" style="margin-top:26px">
+    <a class="btn primary todo" id="rsvp-btn" data-cfg="rsvpUrl" href="#" target="_blank" rel="noopener">RSVP form link — to confirm</a>
+  </div>
+  <p class="rsvp-contact">Prefer to reply personally? Call or text <a href="tel:+17783500488">778-350-0488</a>.</p>
+  <p class="cutoff" data-phase="formal,live">Please respond by September 30, 2026</p>
+</section>
+
+<!-- ======================= THANK YOU (post) ======================= -->
+<section class="block alt reveal thanks" id="thanks" data-phase="post">
+  <div class="divider"><span>❀</span></div>
+  <p class="sub">With all our love</p>
+  <h2>Thank You</h2>
+  <p class="lead-2" id="thankyou">Thank you for celebrating with us — for the love,
+    the blessings, and the memories. We're so grateful you were part of our day.</p>
+  <div class="cta-row" style="margin-top:26px">
+    <a class="btn primary" id="photos-btn" href="#" target="_blank" rel="noopener" style="display:none">View Photos</a>
+    <a class="btn ghost" id="video-btn" href="#" target="_blank" rel="noopener" style="display:none">Watch the Film</a>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="reveal">
+  <div class="divider"><span>❀</span></div>
+  <p class="bless tamil">உங்கள் வருகையே எங்கள் பெருமை</p>
+  <p class="bless-en">Your presence is our greatest blessing</p>
+  <p class="sig">Ashwin &amp; Amartha</p>
+  <p class="fine">Sunday, October 25, 2026 · Milton, Ontario</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   CONFIG — edit this block to evolve the page. Nothing else.
+   ============================================================ */
+const CONFIG = {
+  // The phase of the hub. Each phase reveals progressively more:
+  //   "save-the-date" → teaser    "formal" → full invite
+  //   "live"          → day-of    "post"   → thank-you + galleries
+  mode: "save-the-date",
+
+  // Highlight any unfilled // TODO placeholders in yellow while you work.
+  // Set to false before publishing.
+  showTodos: true,
+
+  // ---- Event (used for the Add-to-Calendar .ics file + countdown) ----
+  event: {
+    title: "Ashwin & Amartha — Wedding",
+    start: "2026-10-25T15:00:00", // 3:00 PM
+    end:   "2026-10-26T01:00:00", // 1:00 AM next day
+    tz:    "America/Toronto",
+    location: "Mirage Banquet & Convention Centre, Milton, Ontario, Canada", // TODO: add full street address when confirmed
+    description: "Join us to celebrate the wedding of Ashwin & Amartha."
+  },
+
+  // ---- Fill these before sending (each shows as a TODO until set) ----
+  venueName:    "Mirage Banquet & Convention Centre",
+  venueAddress: "",  // TODO: full street address, Milton, ON
+  rsvpUrl:      "https://ashwinselvakumar.notion.site/333f565cf5e480a4b747cca16d325b52?pvs=105",  // "Ashwin weds Amartha 2026" Notion form
+  mapEmbedSrc:  "",  // optional Google Maps "Embed a map" iframe src
+  mapsLink:     "https://share.google/04cwOK3P6MgNYo3dV",  // "Open in Maps" link
+  hotelCode:    "",  // e.g. "Holiday Inn Milton — group code AMW"
+  parkingNote:  "",  // e.g. "Free on-site parking"
+  dressCode:    "",  // e.g. "Indian festive / formal"
+
+  // ---- Post-wedding (shown only when mode = "post") ----
+  photoAlbumUrl: "", // shared gallery link (Google Photos, etc.) — button hidden until set
+  videoUrl:      "", // highlight film / livestream replay — button hidden until set
+  thankYouNote:  "", // optional custom thank-you (HTML ok); falls back to the default above
+
+  // ---- UPDATES FEED ----------------------------------------------------
+  // Shows once mode is "formal" or later. Add NEW entries at the TOP.
+  // Fields: when (freeform label), title, body (HTML ok), pinned (floats to top).
+  updates: [
+    // { when: "Oct 25 · 5:30 PM", title: "Ceremony starting soon", body: "Please take your seats.", pinned: true },
+    // { when: "Oct 1", title: "Parking update", body: "Overflow parking is now in Lot B." },
+  ],
+
+  // ---- FULL ITINERARY --------------------------------------------------
+  // Array of days; each day has items. Optional `at` (ISO) powers the
+  // day-of "Happening now" highlight when mode = "live".
+  schedule: [
+    { day: "Sunday, October 25, 2026", items: [
+      { at: "2026-10-25T15:00:00", time: "3:00 PM",        title: "Doors open &amp; guest arrival",
+        note: "Welcome decor, fresh flowers and mangala isai" },
+      { at: "2026-10-25T18:00:00", time: "6:00 – 7:00 PM", title: 'Wedding ceremony <span class="tamil">· முகூர்த்தம்</span>',
+        note: "Muhurtham (Thaali tying) at 6:00 PM sharp, at the manavarai, blessed by the priest" },
+      { at: "2026-10-25T18:30:00", time: "6:30 PM",        title: "Vegetarian appetizers &amp; hoppers station" },
+      { at: "2026-10-25T19:00:00", time: "7:00 PM onward", title: "Reception, dinner &amp; celebration",
+        note: "Full dinner — two meats &amp; a vegetarian spread — DJ and dancing" },
+      { at: "2026-10-26T01:00:00", time: "1:00 AM",        title: "Last dance" }
+    ]}
+  ]
+};
+
+/* ============================================================
+   Wiring (no need to edit below)
+   ============================================================ */
+(function () {
+  const PHASES = ["save-the-date", "formal", "live", "post"];
+  const cur = Math.max(0, PHASES.indexOf(CONFIG.mode));
+  const body = document.body;
+  body.classList.add("phase-" + (PHASES[cur]));
+  if (CONFIG.showTodos) body.classList.add("show-todos");
+
+  // ---- Phase visibility ----
+  function phaseVisible(rule) {
+    if (!rule) return true;
+    if (rule === "pre") return cur < PHASES.indexOf("post");
+    if (rule.endsWith("+")) return cur >= PHASES.indexOf(rule.slice(0, -1));
+    return rule.split(",").map(s => s.trim()).includes(CONFIG.mode);
+  }
+  document.querySelectorAll("[data-phase]").forEach(el => {
+    if (!phaseVisible(el.getAttribute("data-phase"))) el.style.display = "none";
+  });
+
+  // ---- Personalize the invitation line from the URL query param ----
+  // Append ?to=Guest%20Name (also accepts ?name= or ?guest=) per guest when sharing.
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    let raw = params.get("to") || params.get("name") || params.get("guest") || "";
+    let name = raw.replace(/\+/g, " ").trim().replace(/[<>]/g, "").slice(0, 80);
+    const slot = document.getElementById("invite-name");
+    if (slot && name) { slot.innerHTML = ', <span class="guest"></span>,'; slot.querySelector(".guest").textContent = name; }
+  })();
+
+  // ---- Fill simple text placeholders from CONFIG ----
+  document.querySelectorAll("[data-cfg]").forEach(el => {
+    const key = el.getAttribute("data-cfg");
+    const val = CONFIG[key];
+    if (val) {
+      el.classList.remove("todo");
+      if (key === "rsvpUrl") { el.setAttribute("href", val); el.textContent = "RSVP Now"; }
+      else el.textContent = val;
+    }
+  });
+
+  // ---- Maps link (wired to every "Open in Maps" button across phases) ----
+  const query = CONFIG.mapsLink || CONFIG.venueAddress || CONFIG.venueName || "Milton Ontario";
+  const mapHref = CONFIG.mapsLink || ("https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query));
+  ["map-btn", "map-std"].forEach(id => { const el = document.getElementById(id); if (el) el.href = mapHref; });
+
+  // ---- Optional embedded map ----
+  if (CONFIG.mapEmbedSrc) {
+    const wrap = document.getElementById("mapwrap");
+    const f = document.createElement("iframe");
+    f.src = CONFIG.mapEmbedSrc; f.loading = "lazy"; f.setAttribute("allowfullscreen", "");
+    f.referrerPolicy = "no-referrer-when-downgrade";
+    wrap.appendChild(f);
+  }
+
+  // ---- Render the itinerary from CONFIG.schedule ----
+  const schedRoot = document.getElementById("schedule");
+  const glyphs = ["❀", "✦", "✧", "★", "❦", "✿", "☘"];
+  let gi = 0;
+  (CONFIG.schedule || []).forEach(day => {
+    if (day.day) {
+      const h = document.createElement("div");
+      h.className = "sched-day"; h.textContent = day.day;
+      schedRoot.appendChild(h);
+    }
+    const ul = document.createElement("ul"); ul.className = "timeline";
+    (day.items || []).forEach(it => {
+      const li = document.createElement("li");
+      if (it.at) li.dataset.at = it.at;
+      li.innerHTML =
+        '<span class="dot">' + glyphs[gi++ % glyphs.length] + '</span>' +
+        '<div class="t">' + (it.time || "") + '</div>' +
+        '<div class="d">' + (it.title || "") + (it.note ? '<small>' + it.note + '</small>' : '') + '</div>';
+      ul.appendChild(li);
+    });
+    schedRoot.appendChild(ul);
+  });
+
+  // ---- Day-of "Happening now" highlight (live mode) ----
+  if (CONFIG.mode === "live") {
+    const now = Date.now();
+    let curLi = null;
+    schedRoot.querySelectorAll("li[data-at]").forEach(li => {
+      if (new Date(li.dataset.at).getTime() <= now) curLi = li;
+    });
+    if (curLi) {
+      curLi.classList.add("now");
+      const b = document.createElement("span");
+      b.className = "now-badge"; b.textContent = "Happening now";
+      curLi.querySelector(".t").appendChild(b);
+    }
+    // Sticky live banner at the very top
+    let curItem = null;
+    (CONFIG.schedule || []).forEach(d => (d.items || []).forEach(it => {
+      if (it.at && new Date(it.at).getTime() <= now) curItem = it;
+    }));
+    const bar = document.createElement("div");
+    bar.className = "livebar";
+    bar.innerHTML = curItem ? ('✨ Happening now: <b>' + curItem.title + '</b>') : '✨ The celebration begins soon';
+    body.insertBefore(bar, body.firstChild);
+  }
+
+  // ---- Render updates feed (pinned first, then authored order) ----
+  const upRoot = document.getElementById("updates");
+  const ups = (CONFIG.updates || []).slice();
+  ups.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
+  if (!ups.length) {
+    const sec = document.getElementById("updates-section");
+    if (sec) sec.style.display = "none";
+  } else {
+    ups.forEach(u => {
+      const d = document.createElement("div");
+      d.className = "update" + (u.pinned ? " pinned" : "");
+      d.innerHTML =
+        (u.pinned ? '<div class="pin">📌 Pinned</div>' : '') +
+        (u.when ? '<div class="when">' + u.when + '</div>' : '') +
+        '<h3>' + (u.title || '') + '</h3>' +
+        (u.body ? '<p>' + u.body + '</p>' : '');
+      upRoot.appendChild(d);
+    });
+  }
+
+  // ---- Post-wedding gallery buttons + thank-you note ----
+  [["photoAlbumUrl", "photos-btn"], ["videoUrl", "video-btn"]].forEach(([key, id]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (CONFIG[key]) { el.href = CONFIG[key]; el.style.display = ""; }
+  });
+  if (CONFIG.thankYouNote) {
+    const ty = document.getElementById("thankyou");
+    if (ty) ty.innerHTML = CONFIG.thankYouNote;
+  }
+
+  // ---- Countdown ----
+  const target = new Date(CONFIG.event.start).getTime();
+  const cd = document.getElementById("countdown");
+  function tick() {
+    if (!cd) return;
+    const diff = target - Date.now();
+    const set = (k, v) => { const n = cd.querySelector('[data-c="' + k + '"]'); if (n) n.textContent = v; };
+    if (diff <= 0) { set("days", "0"); set("hours", "00"); set("mins", "00"); set("secs", "00"); return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor(diff % 86400000 / 3600000);
+    const m = Math.floor(diff % 3600000 / 60000);
+    const s = Math.floor(diff % 60000 / 1000);
+    set("days", d); set("hours", String(h).padStart(2, "0"));
+    set("mins", String(m).padStart(2, "0")); set("secs", String(s).padStart(2, "0"));
+  }
+  tick(); setInterval(tick, 1000);
+
+  // ---- Add to Calendar (native, per-platform) ----
+  // No web API can silently open the native calendar, so we route to each
+  // platform's own add-event flow:
+  //   • Apple   → event.ics  (iOS/macOS open Calendar's add sheet directly
+  //               when the file is served as text/calendar — true on every
+  //               common static host: Cloudflare Pages, GitHub Pages, etc.)
+  //   • Google  → calendar.google.com template URL (opens app/web, one tap)
+  //   • Outlook → outlook.live.com compose deeplink
+  // Google/Outlook links are generated from CONFIG.event so they stay in sync.
+  // NOTE: event.ics is a separate file — if you change event date/venue,
+  // update event.ics too (it doesn't read from CONFIG).
+  (function () {
+    const e = CONFIG.event;
+    const pad = n => String(n).padStart(2, "0");
+    const stamp = s => { const d = new Date(s); return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+"T"+pad(d.getHours())+pad(d.getMinutes())+"00"; };
+    const loc = CONFIG.venueAddress || CONFIG.venueName || e.location;
+
+    const google = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+      + "&text=" + encodeURIComponent(e.title)
+      + "&dates=" + stamp(e.start) + "/" + stamp(e.end)
+      + "&ctz=" + encodeURIComponent(e.tz)
+      + "&location=" + encodeURIComponent(loc)
+      + "&details=" + encodeURIComponent(e.description);
+    const outlook = "https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent"
+      + "&subject=" + encodeURIComponent(e.title)
+      + "&startdt=" + encodeURIComponent(e.start)
+      + "&enddt=" + encodeURIComponent(e.end)
+      + "&location=" + encodeURIComponent(loc)
+      + "&body=" + encodeURIComponent(e.description);
+
+    const set = (id, href) => { const el = document.getElementById(id); if (el) el.href = href; };
+    set("cal-apple", "event.ics");
+    set("cal-google", google);
+    set("cal-outlook", outlook);
+
+    const btn = document.getElementById("cal-btn");
+    const menu = document.getElementById("cal-menu");
+    if (btn && menu) {
+      const close = () => { menu.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); };
+      btn.addEventListener("click", ev => {
+        ev.stopPropagation();
+        // Open upward if there isn't room below the button (avoids the
+        // hero's overflow:hidden clipping the menu on mobile).
+        if (!menu.classList.contains("open")) {
+          const r = btn.getBoundingClientRect();
+          menu.classList.toggle("up", (window.innerHeight - r.bottom) < 240);
+        }
+        const open = menu.classList.toggle("open");
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      menu.querySelectorAll("a").forEach(a => a.addEventListener("click", close));
+      document.addEventListener("click", close);
+      document.addEventListener("keydown", ev => { if (ev.key === "Escape") close(); });
+    }
+  })();
+
+  // ---- Scroll reveal ----
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
