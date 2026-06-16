@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ashwin weds Amartha · October 25, 2026</title>
+<meta name="description" content="Join us as we celebrate the wedding of Ashwin & Amartha — Sunday, October 25, 2026, in Milton, Ontario." />
+
+<!-- ============================================================
+     ASHWIN ❀ AMARTHA — WEDDING E-INVITE
+     Self-contained, host-agnostic. Open by double-click, or drop
+     onto any public static host (Cloudflare Pages / GitHub Pages).
+
+     ┌─────────────────────────────────────────────────────────┐
+     │  HOW TO EVOLVE THIS PAGE (Save-the-Date → Formal invite)  │
+     │  Edit the CONFIG block just below. That's it.            │
+     │   • CONFIG.mode = "save-the-date"  → lean teaser          │
+     │   • CONFIG.mode = "formal"         → full invite          │
+     │  Fill every value tagged  // TODO  before sending.        │
+     │  CONFIG.showTodos = true highlights unfilled placeholders.│
+     └─────────────────────────────────────────────────────────┘
+
+     DISTRIBUTION (per implementation plan — not built into page):
+       • One URL → WhatsApp broadcast + email BCC blast.
+       • Save-the-Date send target: ~2026-07-15
+       • Formal invite send target: ~2026-08-15
+       • Printed cards for elders handled separately (print vendor).
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&family=Noto+Serif+Tamil:wght@500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --green:  #2f6f3e;
+    --green-d:#244f2e;
+    --pink:   #e89aae;
+    --pink-s: #f6dde4;
+    --gold:   #c9a14a;
+    --gold-d: #a07d2c;
+    --bg:     #faf7f2;
+    --cream:  #fffdf8;
+    --ink:    #2a2c2a;
+    --muted:  #6b6f68;
+    --line:   #e7e0d2;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Jost", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, .serif { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; }
+  .tamil { font-family: "Noto Serif Tamil", "Latha", serif; }
+  a { color: var(--green); }
+
+  /* ---------- TODO placeholder styling (toggle via CONFIG.showTodos) ---------- */
+  .todo { font-style: italic; }
+  body.show-todos .todo {
+    background: #fff3bf; outline: 1px dashed var(--gold-d);
+    padding: 0 4px; border-radius: 3px; font-style: normal;
+  }
+  body.show-todos .todo::before { content: "✎ "; color: var(--gold-d); }
+
+  /* ---------- mode visibility ---------- */
+  .formal-only { display: none; }
+  body.mode-formal .formal-only { display: revert; }
+  body.mode-formal .std-only { display: none; }
+
+  /* ---------- decorative divider ---------- */
+  .divider { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 6px 0 4px; color: var(--gold); }
+  .divider::before, .divider::after { content: ""; height: 1px; width: 54px; background: linear-gradient(90deg, transparent, var(--gold)); }
+  .divider::after { background: linear-gradient(90deg, var(--gold), transparent); }
+  .divider span { font-size: 17px; letter-spacing: .2em; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative; min-height: 100svh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 64px 22px 48px;
+    background-image:
+      linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.28) 50%, rgba(0,0,0,.55) 100%),
+      radial-gradient(900px 620px at 50% 42%, rgba(0,0,0,0) 38%, rgba(0,0,0,.30) 100%),
+      url("images/web/p2.jpg");
+    background-size: cover, cover, cover;
+    background-position: center, center, center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  .hero .corner { position: absolute; width: 160px; height: 160px; opacity: .35; pointer-events: none; }
+  .hero .corner.tl { top: 0; left: 0; }
+  .hero .corner.tr { top: 0; right: 0; transform: scaleX(-1); }
+  .hero .corner.bl { bottom: 0; left: 0; transform: scaleY(-1); }
+  .hero .corner.br { bottom: 0; right: 0; transform: scale(-1,-1); }
+  @media (max-width: 560px){ .hero .corner { width: 104px; height: 104px; } }
+
+  /* hero text turns light/cream over the photo */
+  .hero .eyebrow { color: #f3e6c4; }
+  .hero .eyebrow.tamil { color: #fffdf8; }
+  .hero .names { color: #fffdf8; text-shadow: 0 2px 18px rgba(0,0,0,.45), 0 1px 2px rgba(0,0,0,.5); }
+  .hero .names .amp { color: #f0d79a; }
+  .hero .names-tamil { color: #f9d4de; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
+  .hero .divider { color: #f0d79a; }
+  .hero .divider::before { background: linear-gradient(90deg, transparent, #f0d79a); }
+  .hero .divider::after { background: linear-gradient(90deg, #f0d79a, transparent); }
+
+  .eyebrow { text-transform: uppercase; letter-spacing: .42em; font-size: 12px; color: var(--gold-d); margin: 0 0 6px; text-shadow: 0 1px 6px rgba(0,0,0,.4); }
+  .eyebrow.tamil { letter-spacing: .04em; font-size: 16px; color: var(--green); }
+  .names { font-size: clamp(48px, 13vw, 104px); line-height: .98; margin: 6px 0 2px; color: var(--green-d); }
+  .names .amp { display: block; font-style: italic; font-size: clamp(26px, 7vw, 52px); color: var(--gold); font-weight: 400; margin: 2px 0; }
+  .names-tamil { font-size: clamp(17px, 4.6vw, 24px); color: var(--pink); margin: 2px 0 0; }
+  .hero .when { margin: 22px 0 4px; font-size: clamp(16px, 4.4vw, 21px); letter-spacing: .14em; text-transform: uppercase; color: #fffdf8; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
+  .hero .where { font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #efeae0; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
+
+  /* ---------- buttons ---------- */
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 30px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+    font-family: "Jost", sans-serif; font-weight: 400; font-size: 14px;
+    letter-spacing: .12em; text-transform: uppercase; text-decoration: none;
+    padding: 13px 26px; border-radius: 999px; border: 1px solid var(--green);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn.primary { background: var(--green); color: #fff; box-shadow: 0 6px 18px rgba(47,111,62,.22); }
+  .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(47,111,62,.30); }
+  .btn.ghost { background: transparent; color: var(--green); }
+  .btn.ghost:hover { background: rgba(47,111,62,.07); transform: translateY(-2px); }
+  /* hero ghost button needs to read over the dark photo */
+  .hero .btn.ghost { color: #fffdf8; border-color: #fffdf8; background: rgba(255,255,255,.08); backdrop-filter: blur(2px); }
+  .hero .btn.ghost:hover { background: rgba(255,255,255,.18); }
+
+  .scroll-hint { margin-top: 38px; font-size: 22px; color: #f0d79a; animation: bob 2.4s ease-in-out infinite; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
+  @keyframes bob { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(7px);} }
+
+  /* ---------- sections ---------- */
+  section.block { max-width: 720px; margin: 0 auto; padding: 64px 24px; text-align: center; }
+  section.block h2 { font-size: clamp(28px, 7vw, 40px); color: var(--green-d); margin: 10px 0 4px; }
+  section.block .sub { color: var(--muted); font-size: 14px; letter-spacing: .14em; text-transform: uppercase; margin: 0; }
+  .invite-line { font-size: clamp(22px, 5.4vw, 32px); line-height: 1.45; color: var(--green-d); max-width: 560px; margin: 18px auto 0; font-style: italic; }
+  .invite-line .guest { font-style: normal; color: var(--gold-d); white-space: nowrap; }
+  .alt { background: linear-gradient(180deg, #fff, var(--cream)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  /* ---------- gallery ("Us") ---------- */
+  .gallery-grid { display: grid; gap: 16px; margin-top: 28px; grid-template-columns: 1fr; }
+  @media (min-width: 620px){ .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+  .gallery-grid figure { margin: 0; }
+  .gallery-grid img {
+    display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover;
+    border-radius: 16px; border: 1px solid var(--line);
+    box-shadow: 0 8px 24px rgba(47,38,18,.10);
+  }
+
+  /* ---------- countdown ---------- */
+  .count { display: flex; gap: 14px; justify-content: center; margin-top: 26px; }
+  .count .cell { min-width: 72px; }
+  .count .num { font-family: "Cormorant Garamond", serif; font-size: clamp(34px, 9vw, 52px); color: var(--gold-d); line-height: 1; }
+  .count .lbl { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  /* ---------- timeline ---------- */
+  .timeline { list-style: none; padding: 0; margin: 30px auto 0; max-width: 460px; text-align: left; }
+  .timeline li { position: relative; padding: 0 0 26px 64px; }
+  .timeline li::before {
+    content: ""; position: absolute; left: 21px; top: 4px; bottom: -4px; width: 2px;
+    background: linear-gradient(var(--gold), var(--pink)); }
+  .timeline li:last-child::before { display: none; }
+  .timeline .dot { position: absolute; left: 12px; top: 2px; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--cream); border: 2px solid var(--gold); display: grid; place-items: center; font-size: 11px; }
+  .timeline .t { font-family: "Cormorant Garamond", serif; font-size: 22px; color: var(--green); line-height: 1.1; }
+  .timeline .d { color: var(--ink); font-size: 15px; }
+  .timeline .d small { display: block; color: var(--muted); font-size: 13px; }
+
+  /* ---------- info cards ---------- */
+  .cards { display: grid; gap: 16px; margin-top: 28px; grid-template-columns: 1fr; text-align: left; }
+  @media (min-width: 620px){ .cards.two { grid-template-columns: 1fr 1fr; } }
+  .card { background: var(--cream); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; }
+  .card h3 { margin: 0 0 6px; font-size: 22px; color: var(--green-d); }
+  .card p { margin: 4px 0; font-size: 15px; }
+  .card .label { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-d); }
+
+  /* ---------- map ---------- */
+  .mapwrap { margin-top: 24px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+  .mapwrap iframe { display: block; width: 100%; height: 300px; border: 0; }
+
+  /* ---------- rsvp ---------- */
+  .rsvp { background:
+      radial-gradient(700px 300px at 50% 120%, var(--pink-s), transparent 60%), var(--green-d);
+    color: #fdfaf3; }
+  .rsvp h2 { color: #fff; }
+  .rsvp .sub { color: #cfe0cb; }
+  .rsvp p.lead { font-size: 17px; max-width: 460px; margin: 14px auto 0; color: #eef4ea; font-weight: 300; }
+  .rsvp .btn.primary { background: var(--gold); border-color: var(--gold); color: #2a2410; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+  .rsvp .btn.primary:hover { background: #d8b25e; }
+  .rsvp .cutoff { margin-top: 18px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: #cfe0cb; }
+
+  /* ---------- footer ---------- */
+  footer { text-align: center; padding: 48px 24px 60px; background: var(--cream); }
+  footer .bless { font-family: "Noto Serif Tamil", serif; color: var(--green); font-size: 18px; }
+  footer .sig { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 26px; color: var(--gold-d); margin-top: 6px; }
+  footer .fine { color: var(--muted); font-size: 12px; margin-top: 14px; letter-spacing: .06em; }
+
+  /* ---------- reveal animation ---------- */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce){ .reveal { opacity: 1; transform: none; } .scroll-hint{ animation: none; } }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(120%);
+    background: var(--green-d); color: #fff; padding: 12px 20px; border-radius: 999px;
+    font-size: 14px; letter-spacing: .04em; box-shadow: 0 8px 24px rgba(0,0,0,.25); z-index: 50;
+    transition: transform .35s ease; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+
+<body>
+
+<!-- ======================= HERO ======================= -->
+<header class="hero">
+  <svg class="corner tl" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#fffdf8" stroke-width="1.4">
+    <path d="M2 50 C2 24 24 2 50 2"/><path d="M2 38 C2 18 18 2 38 2"/></g>
+    <g fill="#f9d4de"><circle cx="50" cy="2" r="3"/><circle cx="2" cy="50" r="3"/><circle cx="26" cy="26" r="4.5"/></g>
+    <g fill="#cfe8d2"><circle cx="14" cy="40" r="2.4"/><circle cx="40" cy="14" r="2.4"/></g></svg>
+  <svg class="corner tr" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#fffdf8" stroke-width="1.4">
+    <path d="M2 50 C2 24 24 2 50 2"/><path d="M2 38 C2 18 18 2 38 2"/></g>
+    <g fill="#f9d4de"><circle cx="50" cy="2" r="3"/><circle cx="2" cy="50" r="3"/><circle cx="26" cy="26" r="4.5"/></g>
+    <g fill="#cfe8d2"><circle cx="14" cy="40" r="2.4"/><circle cx="40" cy="14" r="2.4"/></g></svg>
+  <svg class="corner bl" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#fffdf8" stroke-width="1.4">
+    <path d="M2 50 C2 24 24 2 50 2"/><path d="M2 38 C2 18 18 2 38 2"/></g>
+    <g fill="#f9d4de"><circle cx="50" cy="2" r="3"/><circle cx="2" cy="50" r="3"/><circle cx="26" cy="26" r="4.5"/></g>
+    <g fill="#cfe8d2"><circle cx="14" cy="40" r="2.4"/><circle cx="40" cy="14" r="2.4"/></g></svg>
+  <svg class="corner br" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#fffdf8" stroke-width="1.4">
+    <path d="M2 50 C2 24 24 2 50 2"/><path d="M2 38 C2 18 18 2 38 2"/></g>
+    <g fill="#f9d4de"><circle cx="50" cy="2" r="3"/><circle cx="2" cy="50" r="3"/><circle cx="26" cy="26" r="4.5"/></g>
+    <g fill="#cfe8d2"><circle cx="14" cy="40" r="2.4"/><circle cx="40" cy="14" r="2.4"/></g></svg>
+
+  <p class="eyebrow std-only">Save the Date</p>
+  <p class="eyebrow tamil std-only">நாளை குறித்து வையுங்கள்</p>
+  <p class="eyebrow formal-only">Together with our families, we invite you</p>
+
+  <h1 class="names">Ashwin<span class="amp">weds</span>Amartha</h1>
+  <p class="names-tamil tamil">அஷ்வின் &nbsp;❀&nbsp; அமர்தா</p>
+
+  <div class="divider" style="margin-top:22px"><span>❦</span></div>
+
+  <p class="when">Sunday · October 25, 2026</p>
+  <p class="where">Milton, Ontario · Canada</p>
+
+  <div class="cta-row">
+    <a class="btn primary" href="#rsvp">RSVP</a>
+    <button class="btn ghost" id="ics-btn" type="button">Add to Calendar</button>
+  </div>
+
+  <div class="scroll-hint">❧</div>
+</header>
+
+<!-- ======================= INVITATION ======================= -->
+<section class="block reveal">
+  <div class="divider"><span>❦</span></div>
+  <p class="invite-line serif" id="invite-line">
+    We would like to cordially invite you<span id="invite-name"></span>
+    to celebrate our wedding with us.
+  </p>
+</section>
+
+<!-- ======================= US / GALLERY ======================= -->
+<section class="block reveal">
+  <div class="divider"><span>❀</span></div>
+  <p class="sub">A few of our favourite moments</p>
+  <h2>Us</h2>
+  <div class="gallery-grid">
+    <figure><img src="images/web/p1.jpg" alt="Ashwin and Amartha by a red phone booth" loading="lazy" /></figure>
+    <figure><img src="images/web/p3.jpg" alt="Ashwin and Amartha at the gazebo" loading="lazy" /></figure>
+    <figure><img src="images/web/p4.jpg" alt="Amartha in a pink dress amid autumn tones" loading="lazy" /></figure>
+  </div>
+</section>
+
+<!-- ======================= COUNTDOWN ======================= -->
+<section class="block reveal">
+  <div class="divider"><span>❀</span></div>
+  <p class="sub">Counting down to</p>
+  <h2>The Big Day</h2>
+  <div class="count" id="countdown" aria-live="polite">
+    <div class="cell"><div class="num" data-c="days">—</div><div class="lbl">Days</div></div>
+    <div class="cell"><div class="num" data-c="hours">—</div><div class="lbl">Hours</div></div>
+    <div class="cell"><div class="num" data-c="mins">—</div><div class="lbl">Minutes</div></div>
+    <div class="cell"><div class="num" data-c="secs">—</div><div class="lbl">Seconds</div></div>
+  </div>
+</section>
+
+<!-- ======================= THE CELEBRATION / ITINERARY ======================= -->
+<section class="block alt reveal">
+  <div class="divider"><span>முகூர்த்தம்</span></div>
+  <p class="sub">Sunday, October 25, 2026</p>
+  <h2>The Celebration</h2>
+
+  <!-- STD mode: teaser only -->
+  <p class="std-only" style="max-width:460px;margin:14px auto 0;color:var(--muted)">
+    An evening of Tamil tradition, dinner and dancing in Milton. The full schedule
+    and all the details will arrive with your formal invitation.
+  </p>
+
+  <!-- Formal mode: full guest-facing timeline -->
+  <ul class="timeline formal-only">
+    <li>
+      <span class="dot">❀</span>
+      <div class="t">3:00 PM</div>
+      <div class="d">Doors open &amp; guest arrival
+        <small>Welcome decor, fresh flowers and mangala isai</small></div>
+    </li>
+    <li>
+      <span class="dot">✦</span>
+      <div class="t">6:00 – 7:00 PM</div>
+      <div class="d">Wedding ceremony <span class="tamil">· முகூர்த்தம்</span>
+        <small>The muhurtham at the manavarai, blessed by the priest</small></div>
+    </li>
+    <li>
+      <span class="dot">☕</span>
+      <div class="t">6:30 PM</div>
+      <div class="d">Vegetarian appetizers &amp; hoppers station</div>
+    </li>
+    <li>
+      <span class="dot">✧</span>
+      <div class="t">7:00 PM onward</div>
+      <div class="d">Reception, dinner &amp; celebration
+        <small>Full dinner — two meats &amp; a vegetarian spread — DJ and dancing</small></div>
+    </li>
+    <li>
+      <span class="dot">★</span>
+      <div class="t">1:00 AM</div>
+      <div class="d">Last dance</div>
+    </li>
+  </ul>
+</section>
+
+<!-- ======================= VENUE ======================= -->
+<section class="block reveal">
+  <div class="divider"><span>❦</span></div>
+  <p class="sub">Where</p>
+  <h2>The Venue</h2>
+
+  <div class="cards">
+    <div class="card">
+      <p class="label">Banquet Hall</p>
+      <h3 class="todo" data-cfg="venueName">Venue name — to confirm</h3>
+      <p class="todo" data-cfg="venueAddress">Street address, Milton, Ontario — to confirm</p>
+      <p style="margin-top:12px">
+        <a class="btn ghost" id="map-btn" href="#" target="_blank" rel="noopener" style="padding:10px 20px">Open in Maps ↗</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="mapwrap formal-only" id="mapwrap"><!-- map iframe injected by CONFIG --></div>
+</section>
+
+<!-- ======================= TRAVEL & STAY (formal only) ======================= -->
+<section class="block alt reveal formal-only">
+  <div class="divider"><span>❀</span></div>
+  <p class="sub">For our out-of-town guests</p>
+  <h2>Travel &amp; Stay</h2>
+
+  <div class="cards two">
+    <div class="card">
+      <p class="label">Room Block</p>
+      <h3>Where to stay</h3>
+      <p>We've arranged a group rate at a hotel near the venue.</p>
+      <p style="margin-top:8px"><span class="label">Booking code</span><br/>
+        <strong class="todo" data-cfg="hotelCode">Hotel + group code — to confirm</strong></p>
+    </div>
+    <div class="card">
+      <p class="label">Getting there</p>
+      <h3>Parking</h3>
+      <p class="todo" data-cfg="parkingNote">Parking details — to confirm (free on-site / valet / lot nearby)</p>
+      <p style="margin-top:8px"><span class="label">Dress code</span><br/>
+        <span class="todo" data-cfg="dressCode">Dress code — to confirm (e.g. Indian festive / formal)</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= RSVP ======================= -->
+<section class="block rsvp reveal" id="rsvp">
+  <div class="divider"><span style="color:var(--gold)">❧</span></div>
+  <p class="sub">Kindly reply</p>
+  <h2>RSVP</h2>
+  <p class="lead">Your presence is the greatest gift. Please let us know if you can
+    join us so we can save you a seat at the celebration.</p>
+  <div class="cta-row" style="margin-top:26px">
+    <a class="btn primary todo" id="rsvp-btn" data-cfg="rsvpUrl" href="#" target="_blank" rel="noopener">RSVP form link — to confirm</a>
+  </div>
+  <p class="cutoff formal-only">Please respond by September 30, 2026</p>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="reveal">
+  <div class="divider"><span>❀</span></div>
+  <p class="bless tamil">அன்புடன் வரவேற்கிறோம்</p>
+  <p class="sig">Ashwin &amp; Amartha</p>
+  <p class="fine">Sunday, October 25, 2026 · Milton, Ontario</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   CONFIG — edit this block to evolve the page. Nothing else.
+   ============================================================ */
+const CONFIG = {
+  // "save-the-date"  → lean teaser (send ~Jul 15)
+  // "formal"         → full invite (send ~Aug 15)
+  mode: "save-the-date",
+
+  // Highlight any unfilled // TODO placeholders in yellow while you work.
+  // Set to false before publishing.
+  showTodos: true,
+
+  // ---- Event (used for the Add-to-Calendar .ics file) ----
+  event: {
+    title: "Ashwin & Amartha — Wedding",
+    start: "2026-10-25T15:00:00", // 3:00 PM
+    end:   "2026-10-26T01:00:00", // 1:00 AM next day
+    tz:    "America/Toronto",
+    location: "Milton, Ontario, Canada", // TODO: replace with full venue address
+    description: "Join us to celebrate the wedding of Ashwin & Amartha."
+  },
+
+  // ---- Fill these before sending (each shows as a TODO until set) ----
+  venueName:    "",  // e.g. "Grand Empire Banquet Hall"
+  venueAddress: "",  // e.g. "123 Main St, Milton, ON L9T 0A0"
+  rsvpUrl:      "https://ashwinselvakumar.notion.site/333f565cf5e480a4b747cca16d325b52?pvs=105",  // "Ashwin weds Amartha 2026" Notion form
+  mapEmbedSrc:  "",  // optional Google Maps "Embed a map" iframe src (formal mode)
+  mapsLink:     "",  // optional "Open in Maps" link; falls back to a search on venue/address
+  hotelCode:    "",  // e.g. "Holiday Inn Milton — group code AMW"
+  parkingNote:  "",  // e.g. "Free on-site parking"
+  dressCode:    ""   // e.g. "Indian festive / formal"
+};
+
+/* ============================================================
+   Wiring (no need to edit below)
+   ============================================================ */
+(function () {
+  const body = document.body;
+  body.classList.add(CONFIG.mode === "formal" ? "mode-formal" : "mode-std");
+  if (CONFIG.showTodos) body.classList.add("show-todos");
+
+  // ---- Personalize the invitation line from the URL query param ----
+  // Append ?to=Guest%20Name (also accepts ?name= or ?guest=) per guest when sharing.
+  // e.g. .../index.html?to=Kavita%20Attai  →  "...cordially invite you, Kavita Attai, to..."
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    let raw = params.get("to") || params.get("name") || params.get("guest") || "";
+    let name = raw.replace(/\+/g, " ").trim();
+    // light sanitization — strip any HTML-ish characters
+    name = name.replace(/[<>]/g, "").slice(0, 80);
+    const slot = document.getElementById("invite-name");
+    if (slot && name) slot.innerHTML = ', <span class="guest"></span>,';
+    if (slot && name) slot.querySelector(".guest").textContent = name;
+  })();
+
+  // Fill text placeholders only when a value is provided
+  document.querySelectorAll("[data-cfg]").forEach(el => {
+    const key = el.getAttribute("data-cfg");
+    const val = CONFIG[key];
+    if (val) {
+      el.classList.remove("todo");
+      if (key === "rsvpUrl") { el.setAttribute("href", val); el.textContent = "RSVP Now"; }
+      else el.textContent = val;
+    }
+  });
+
+  // Maps link: explicit link, else search by name/address, else generic Milton
+  const mapBtn = document.getElementById("map-btn");
+  const query = CONFIG.mapsLink || CONFIG.venueAddress || CONFIG.venueName || "Milton Ontario";
+  mapBtn.href = CONFIG.mapsLink || ("https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query));
+
+  // Optional embedded map (formal mode)
+  if (CONFIG.mapEmbedSrc) {
+    const wrap = document.getElementById("mapwrap");
+    const f = document.createElement("iframe");
+    f.src = CONFIG.mapEmbedSrc; f.loading = "lazy"; f.setAttribute("allowfullscreen", "");
+    f.referrerPolicy = "no-referrer-when-downgrade";
+    wrap.appendChild(f);
+  }
+
+  // ---- Countdown ----
+  const target = new Date(CONFIG.event.start).getTime();
+  const cd = document.getElementById("countdown");
+  function tick() {
+    const diff = target - Date.now();
+    const set = (k, v) => { const n = cd.querySelector('[data-c="'+k+'"]'); if (n) n.textContent = v; };
+    if (diff <= 0) { set("days","0"); set("hours","0"); set("mins","0"); set("secs","0"); return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor(diff % 86400000 / 3600000);
+    const m = Math.floor(diff % 3600000 / 60000);
+    const s = Math.floor(diff % 60000 / 1000);
+    set("days", d); set("hours", String(h).padStart(2,"0"));
+    set("mins", String(m).padStart(2,"0")); set("secs", String(s).padStart(2,"0"));
+  }
+  tick(); setInterval(tick, 1000);
+
+  // ---- Add to Calendar (.ics download) ----
+  function pad(n){ return String(n).padStart(2,"0"); }
+  function fmt(s){ const d = new Date(s); return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+"T"+pad(d.getHours())+pad(d.getMinutes())+"00"; }
+  document.getElementById("ics-btn").addEventListener("click", function () {
+    const e = CONFIG.event;
+    const ics = [
+      "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//AshwinAmartha//Wedding//EN",
+      "BEGIN:VEVENT",
+      "UID:ashwin-amartha-2026-10-25@wedding",
+      "DTSTART;TZID="+e.tz+":"+fmt(e.start),
+      "DTEND;TZID="+e.tz+":"+fmt(e.end),
+      "SUMMARY:"+e.title,
+      "LOCATION:"+(CONFIG.venueAddress || e.location),
+      "DESCRIPTION:"+e.description,
+      "END:VEVENT","END:VCALENDAR"
+    ].join("\r\n");
+    const blob = new Blob([ics], { type: "text/calendar" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "ashwin-amartha-wedding.ics";
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+    showToast("📅 Calendar invite downloaded");
+  });
+
+  function showToast(msg){
+    const t = document.getElementById("toast");
+    t.textContent = msg; t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 2600);
+  }
+
+  // ---- Scroll reveal ----
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
