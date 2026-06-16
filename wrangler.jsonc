@@ -1,0 +1,9 @@
+{
+  "name": "shareable-public",
+  "compatibility_date": "2026-06-15",
+  // Serve the repo root as static assets. No Worker code — pure static hosting,
+  // publicly accessible (no Zero Trust Access policy attached).
+  "assets": {
+    "directory": "."
+  }
+}
