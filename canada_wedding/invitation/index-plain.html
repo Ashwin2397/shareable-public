@@ -556,29 +556,27 @@
     }
 
     /* ---------- RSVP photo background ---------- */
+    /* same treatment as The Big Day: warm gold overlay + light copy */
     .block.rsvp-bg {
-      background: linear-gradient(rgba(255, 253, 248, .42), rgba(255, 253, 248, .42)), url("images/proposal_makeshift.jpg") center / cover no-repeat;
+      background: linear-gradient(rgba(160, 125, 44, .46), rgba(160, 125, 44, .46)), url("images/proposal_makeshift.jpg") center / cover no-repeat;
       padding-bottom: 160px;
     }
 
-    /* deep-green theme colour + stronger cream halo so the copy pops off the photo */
-    .block.rsvp-bg h2,
+    .block.rsvp-bg h2 {
+      color: #fff;
+    }
+
     .block.rsvp-bg .sub,
     .block.rsvp-bg .invite-line,
     .block.rsvp-bg .bless,
     .block.rsvp-bg .bless-en,
     .block.rsvp-bg .rsvp-contact,
     .block.rsvp-bg .cutoff {
-      color: var(--green-d);
-      text-shadow:
-        0 0 3px rgba(255, 255, 250, 1),
-        0 1px 2px rgba(255, 255, 250, 1),
-        0 0 16px rgba(255, 255, 250, .95),
-        0 0 28px rgba(255, 255, 250, .8);
+      color: #fbf3e2;
     }
 
     .block.rsvp-bg .rsvp-contact a {
-      color: var(--green-d);
+      color: #fff;
     }
 
     /* ---------- countdown photo background ---------- */
@@ -1095,15 +1093,15 @@
 
     <p class="invite-line serif" style="margin-top:14px">We're ready to make our commitment —<br />are you?</p>
 
-    <p class="bless tamil" style="margin-top:28px">உங்கள் வருகையே எங்கள் பெருமை</p>
-    <p class="bless-en">Your presence is our greatest blessing</p>
-
     <div class="cta-row" style="margin-top:22px">
       <a class="btn primary todo" id="rsvp-btn" data-cfg="rsvpUrl" href="#" target="_blank" rel="noopener">RSVP form
         link — to confirm</a>
     </div>
     <p class="rsvp-contact">Prefer to reply personally? Call, WhatsApp or text <a
         href="tel:+17783500488">+1-778-350-0488</a>.</p>
+
+    <p class="bless tamil" style="margin-top:28px">உங்கள் வருகையே எங்கள் பெருமை</p>
+    <p class="bless-en">Your presence is our greatest blessing</p>
 
     <p class="cutoff" data-phase="formal,live">Please respond by September 30, 2026</p>
   </section>
@@ -1202,18 +1200,6 @@
 
   <!-- ======================= FOOTER (from variant D) ======================= -->
   <footer class="reveal">
-    <!-- scrapbook cluster of two polaroids (from variant D's Celebration) -->
-    <div class="photo-cluster reveal" style="margin-bottom:30px">
-      <figure class="polaroid rot-l">
-        <img src="images/web/p3.jpg" alt="The proposal at the gazebo" loading="lazy" />
-        <figcaption class="cap">the proposal</figcaption>
-      </figure>
-      <figure class="polaroid rot-r">
-        <img src="images/web/hero.jpg" alt="Ashwin and Amartha at the restaurant" loading="lazy" />
-        <figcaption class="cap">date night</figcaption>
-      </figure>
-    </div>
-
     <div class="divider"><span>❀</span></div>
     <p class="bless tamil">அன்புடன் வரவேற்கிறோம்</p>
     <p class="sig">Ashwin &amp; Amartha</p>
