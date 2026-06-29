@@ -557,7 +557,20 @@
 
     /* ---------- RSVP photo background ---------- */
     .block.rsvp-bg {
-      background: linear-gradient(rgba(255, 253, 248, .42), rgba(255, 253, 248, .42)), url("images/proposal_makeshift.jpg") center / cover no-repeat;
+      background: url("images/proposal_makeshift.jpg") center / cover no-repeat;
+    }
+
+    /* frosted panel keeps the photo framing the edges while the copy stays readable */
+    .rsvp-panel {
+      max-width: 540px;
+      margin: 0 auto;
+      background: rgba(255, 253, 248, .78);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      border: 1px solid rgba(255, 255, 255, .5);
+      border-radius: 16px;
+      padding: 30px 26px 34px;
+      box-shadow: 0 10px 34px rgba(42, 44, 42, .16);
     }
 
     /* ---------- countdown photo background ---------- */
@@ -1068,22 +1081,24 @@
 
   <!-- ======================= RSVP (closing footer lines merged in) ======================= -->
   <section class="block reveal rsvp-bg" id="rsvp" data-phase="pre">
-    <div class="divider"><span style="color:var(--gold)">❧</span></div>
-    <p class="sub">Kindly reply</p>
-    <h2>RSVP</h2>
+    <div class="rsvp-panel">
+      <div class="divider"><span style="color:var(--gold)">❧</span></div>
+      <p class="sub">Kindly reply</p>
+      <h2>RSVP</h2>
 
-    <p class="invite-line serif" style="margin-top:14px">We're ready to make our commitment —<br />are you?</p>
+      <p class="invite-line serif" style="margin-top:14px">We're ready to make our commitment —<br />are you?</p>
 
-    <p class="bless tamil" style="margin-top:28px">உங்கள் வருகையே எங்கள் பெருமை</p>
-    <p class="bless-en">Your presence is our greatest blessing</p>
+      <p class="bless tamil" style="margin-top:28px">உங்கள் வருகையே எங்கள் பெருமை</p>
+      <p class="bless-en">Your presence is our greatest blessing</p>
 
-    <div class="cta-row" style="margin-top:22px">
-      <a class="btn primary todo" id="rsvp-btn" data-cfg="rsvpUrl" href="#" target="_blank" rel="noopener">RSVP form
-        link — to confirm</a>
+      <div class="cta-row" style="margin-top:22px">
+        <a class="btn primary todo" id="rsvp-btn" data-cfg="rsvpUrl" href="#" target="_blank" rel="noopener">RSVP form
+          link — to confirm</a>
+      </div>
+      <p class="rsvp-contact">Prefer to reply personally? Call, WhatsApp or text <a href="tel:+17783500488">+1-778-350-0488</a>.</p>
+
+      <p class="cutoff" data-phase="formal,live">Please respond by September 30, 2026</p>
     </div>
-    <p class="rsvp-contact">Prefer to reply personally? Call, WhatsApp or text <a href="tel:+17783500488">+1-778-350-0488</a>.</p>
-
-    <p class="cutoff" data-phase="formal,live">Please respond by September 30, 2026</p>
   </section>
 
   <!-- ======================= TRAVEL & STAY ======================= -->
