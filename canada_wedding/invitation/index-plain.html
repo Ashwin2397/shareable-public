@@ -564,23 +564,22 @@
     /* ---------- RSVP photo background ---------- */
     /* same treatment as The Big Day: warm gold overlay + light copy */
     .block.rsvp-bg {
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 88vh;
       background: linear-gradient(rgba(160, 125, 44, .46), rgba(160, 125, 44, .46)), url("images/proposal_makeshift.jpg") center / cover no-repeat;
-      padding-bottom: 160px;
+      padding-bottom: 56px;
     }
 
-    /* blessing lines pinned to the bottom of the section */
+    /* button, contact + blessing pushed to the bottom of the section */
     .rsvp-bottom {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 44px;
+      margin-top: auto;
       width: 100%;
-      padding: 0 24px;
     }
 
     .rsvp-bottom .bless {
-      margin: 0 0 1px;
+      margin: 24px 0 1px;
     }
 
     .block.rsvp-bg h2 {
@@ -1114,16 +1113,16 @@
 
     <p class="invite-line serif" style="margin-top:14px">Are you?</p>
 
-    <div class="cta-row" style="margin-top:22px">
-      <a class="btn primary todo" id="rsvp-btn" data-cfg="rsvpUrl" href="#" target="_blank" rel="noopener">RSVP form
-        link — to confirm</a>
-    </div>
-    <p class="rsvp-contact">Prefer to reply personally? Call, WhatsApp or text <a
-        href="tel:+17783500488">+1-778-350-0488</a>.</p>
-
-    <p class="cutoff" data-phase="formal,live">Please respond by September 30, 2026</p>
-
     <div class="rsvp-bottom">
+      <div class="cta-row">
+        <a class="btn primary todo" id="rsvp-btn" data-cfg="rsvpUrl" href="#" target="_blank" rel="noopener">RSVP form
+          link — to confirm</a>
+      </div>
+      <p class="rsvp-contact">Prefer to reply personally? Call, WhatsApp or text <a
+          href="tel:+17783500488">+1-778-350-0488</a>.</p>
+
+      <p class="cutoff" data-phase="formal,live">Please respond by September 30, 2026</p>
+
       <p class="bless tamil">உங்கள் வருகையே எங்கள் பெருமை</p>
       <p class="bless-en">Your presence is our greatest blessing</p>
     </div>
