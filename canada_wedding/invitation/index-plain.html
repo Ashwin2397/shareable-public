@@ -474,56 +474,35 @@
       margin: 12px 0;
     }
 
-    /* ---------- invitation: monkey.jpg with a name under each person ---------- */
-    .invite-photo {
-      position: relative;
+    /* ---------- invitation over monkey.jpg, names under each person ---------- */
+    .block.invite-bg {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 96vh;
+      background: linear-gradient(rgba(160, 125, 44, .46), rgba(160, 125, 44, .46)), url("images/monkey.jpg") center / cover no-repeat;
+    }
+
+    .block.invite-bg .families {
+      margin: auto 0 0;
+      max-width: none;
       width: 100%;
-      max-width: 560px;
-      margin: 28px auto 0;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(42, 44, 42, .14);
+      display: flex;
+      gap: 16px;
     }
 
-    .invite-photo img {
-      display: block;
-      width: 100%;
-      height: auto;
+    .block.invite-bg .fam-col {
+      flex: 1;
+      text-align: center;
     }
 
-    /* gold tint to match the other overlays, darkening toward the bottom so the labels read */
-    .invite-photo::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(rgba(160, 125, 44, .34), rgba(160, 125, 44, .18) 50%, rgba(34, 46, 30, .62));
-    }
-
-    .fam-label {
-      position: absolute;
-      bottom: 5%;
-      transform: translateX(-50%);
-      width: 48%;
-    }
-
-    .fam-label.fam-left {
-      left: 31%;
-    }
-
-    .fam-label.fam-right {
-      left: 76%;
-    }
-
-    .fam-label .fam-couple {
+    .block.invite-bg .fam-couple {
       color: #fff;
-      text-shadow: 0 1px 6px rgba(0, 0, 0, .55);
     }
 
-    .fam-label .fam-parents {
-      color: #f3ead4;
-      font-size: 13px;
-      text-shadow: 0 1px 5px rgba(0, 0, 0, .6);
+    .block.invite-bg .invite-line,
+    .block.invite-bg .fam-parents {
+      color: #fbf3e2;
     }
 
     .lead-2 {
@@ -1122,25 +1101,24 @@
   </header>
 
   <!-- ======================= INVITATION ======================= -->
-  <section class="block reveal">
+  <section class="block reveal invite-bg">
     <div class="divider"><span>❦</span></div>
     <p class="invite-line serif" id="invite-line">
       Together with our families, we would love for you<span id="invite-name"></span>
       to join us and celebrate as we begin our life together.
     </p>
 
-    <!-- names pinned under each person: Ashwin (left) under him, Amartha (right) under her -->
-    <figure class="invite-photo">
-      <img src="images/monkey.jpg" alt="Ashwin and Amartha among the trees" loading="lazy" />
-      <figcaption class="fam-label fam-left">
+    <!-- names flank the path: Ashwin (left) under him, Amartha (right) under her -->
+    <div class="families">
+      <div class="fam-col">
         <p class="fam-couple">Ashwin Selvakumar</p>
         <p class="fam-parents">Son of Selvakumar Ramasamy &amp; Rajini Selvakumar</p>
-      </figcaption>
-      <figcaption class="fam-label fam-right">
+      </div>
+      <div class="fam-col">
         <p class="fam-couple">Amarthavalli</p>
         <p class="fam-parents">Daughter of Maximilian M. &amp; Chiranjeevi Vijayalakshmi</p>
-      </figcaption>
-    </figure>
+      </div>
+    </div>
   </section>
 
   <!-- ======================= UPDATES FEED ======================= -->
