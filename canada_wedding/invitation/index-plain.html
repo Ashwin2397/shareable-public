@@ -474,6 +474,35 @@
       margin: 12px 0;
     }
 
+    /* ---------- invitation over monkey.jpg, names under each person ---------- */
+    .block.invite-bg {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 96vh;
+      background: linear-gradient(rgba(255, 253, 248, .38), rgba(255, 253, 248, .38)), url("images/monkey.jpg") center / cover no-repeat;
+    }
+
+    .block.invite-bg .families {
+      margin: auto 0 0;
+      max-width: none;
+      width: 100%;
+      display: flex;
+      gap: 16px;
+    }
+
+    .block.invite-bg .fam-col {
+      flex: 1;
+      text-align: center;
+    }
+
+    .block.invite-bg .invite-line,
+    .block.invite-bg .fam-couple,
+    .block.invite-bg .fam-parents {
+      color: var(--green-d);
+      text-shadow: 0 1px 3px rgba(255, 255, 250, .95), 0 0 12px rgba(255, 255, 250, .8);
+    }
+
     .lead-2 {
       font-size: 17px;
       max-width: 480px;
@@ -1070,19 +1099,23 @@
   </header>
 
   <!-- ======================= INVITATION ======================= -->
-  <section class="block reveal">
+  <section class="block reveal invite-bg">
     <div class="divider"><span>❦</span></div>
     <p class="invite-line serif" id="invite-line">
       Together with our families, we would love for you<span id="invite-name"></span>
       to join us and celebrate as we begin our life together.
     </p>
 
+    <!-- names flank the path: Ashwin (left) under him, Amartha (right) under her -->
     <div class="families">
-      <p class="fam-couple">Ashwin Selvakumar</p>
-      <p class="fam-parents">Son of Selvakumar Ramasamy &amp; Rajini Selvakumar</p>
-      <div class="fam-amp">❀</div>
-      <p class="fam-couple">Amarthavalli</p>
-      <p class="fam-parents">Daughter of Maximilian M. &amp; Chiranjeevi Vijayalakshmi</p>
+      <div class="fam-col">
+        <p class="fam-couple">Ashwin Selvakumar</p>
+        <p class="fam-parents">Son of Selvakumar Ramasamy &amp; Rajini Selvakumar</p>
+      </div>
+      <div class="fam-col">
+        <p class="fam-couple">Amarthavalli</p>
+        <p class="fam-parents">Daughter of Maximilian M. &amp; Chiranjeevi Vijayalakshmi</p>
+      </div>
     </div>
   </section>
 
