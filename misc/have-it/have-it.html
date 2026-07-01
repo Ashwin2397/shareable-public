@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bala Says Have It</title>
+<style>
+  :root { --bg:#0d0d12; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; background: var(--bg);
+    color: #fff; font-family: system-ui, sans-serif;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 24px; text-align: center;
+    overflow-x: hidden; user-select: none;
+  }
+  h1 { font-size: clamp(2rem, 9vw, 5rem); margin: 0; }
+  .face {
+    width: min(320px, 70vw); border-radius: 50%; border: 6px solid #ff3b3b;
+    box-shadow: 0 0 40px rgba(255,59,59,.5); transition: transform .08s;
+  }
+  .face.wobble { transform: rotate(-4deg) scale(1.05); }
+  #count { font-size: clamp(1rem, 4vw, 1.5rem); color: #ff9b9b; }
+  button {
+    font: inherit; font-size: 1.4rem; font-weight: 700; padding: 16px 40px;
+    border: none; border-radius: 999px; background: #ff3b3b; color: #fff;
+    cursor: pointer; box-shadow: 0 6px 0 #a30000; transition: transform .05s;
+  }
+  button:active { transform: translateY(4px); box-shadow: 0 2px 0 #a30000; }
+  sub { display:block; opacity:.5; margin-top:40px; font-size:.8rem; }
+  .pop {
+    position: fixed; pointer-events: none; font-weight: 800;
+    font-size: 2rem; color: #ff3b3b; animation: float 1s ease-out forwards;
+  }
+  @keyframes float { to { transform: translateY(-120px); opacity: 0; } }
+</style>
+</head>
+<body>
+  <h1>Bala says<br>HAVE IT.</h1>
+  <!-- ponytail: drop bala.jpg next to this file; alt text carries the joke if it's missing -->
+  <img id="bala" class="face" src="bala.png" alt="Just have it lah 🫱">
+  <button id="btn">Have it</button>
+  <div id="count">Times you've been told to have it: 0</div>
+  <sub>Have it responsibly.</sub>
+
+<script>
+const lines = [
+  "Have it.", "Just have it.", "Bro, have it.", "Have it lah.",
+  "You must have it.", "Have it, have it.", "Have laaa.", "HAVE. IT."
+];
+let n = 0;
+const btn = document.getElementById('btn');
+const face = document.getElementById('bala');
+const count = document.getElementById('count');
+const speech = window.speechSynthesis;
+
+btn.addEventListener('click', (e) => {
+  n++;
+  count.textContent = `Times you've been told to have it: ${n}`;
+  face.classList.add('wobble');
+  setTimeout(() => face.classList.remove('wobble'), 120);
+
+  const line = lines[Math.floor(Math.random() * lines.length)];
+  const pop = document.createElement('div');
+  pop.className = 'pop';
+  pop.textContent = line;
+  pop.style.left = e.clientX + 'px';
+  pop.style.top = e.clientY + 'px';
+  document.body.appendChild(pop);
+  setTimeout(() => pop.remove(), 1000);
+
+  // ponytail: browser SpeechSynthesis — no audio files to host
+  if (speech) {
+    const u = new SpeechSynthesisUtterance(line);
+    u.rate = 1.1; u.pitch = 0.9;
+    speech.cancel(); speech.speak(u);
+  }
+});
+</script>
+</body>
+</html>
