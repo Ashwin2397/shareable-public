@@ -1092,7 +1092,7 @@
     <p class="where">Mirage Banquet &amp; Convention Centre<br />Etobicoke, Ontario · Canada</p>
 
     <div class="cta-row">
-      <a class="btn primary" href="#rsvp" data-phase="pre">RSVP</a>
+      <a class="btn primary" id="rsvp-hero" href="#rsvp" target="_blank" rel="noopener" data-phase="pre">RSVP</a>
       <a class="btn ghost" id="map-hero" href="#" target="_blank" rel="noopener" data-phase="pre">Open in Maps ↗</a>
       <a class="btn primary" href="#thanks" data-phase="post">View Photos</a>
     </div>
@@ -1379,6 +1379,10 @@
           else el.textContent = val;
         }
       });
+
+      // ---- Hero "RSVP" button → Notion form (keeps its label; falls back to #rsvp scroll) ----
+      const rsvpHero = document.getElementById("rsvp-hero");
+      if (rsvpHero && CONFIG.rsvpUrl) rsvpHero.href = CONFIG.rsvpUrl;
 
       // ---- Maps link (wired to every "Open in Maps" button across phases) ----
       const query = CONFIG.mapsLink || CONFIG.venueAddress || CONFIG.venueName || "Etobicoke Ontario";
