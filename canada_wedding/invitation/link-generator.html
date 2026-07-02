@@ -73,6 +73,15 @@
     box-shadow: 0 0 0 3px rgba(47,111,62,.12); }
   input.invalid { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(232,154,174,.18); }
 
+  textarea {
+    width: 100%; padding: 11px 14px; font-size: 15px; font-family: inherit;
+    color: var(--ink); background: #fff; border: 1px solid var(--line);
+    border-radius: 10px; resize: vertical; min-height: 220px; line-height: 1.6;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  textarea:focus { outline: none; border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(47,111,62,.12); }
+
   .btn {
     display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
     font-family: inherit; font-weight: 500; font-size: 14px; letter-spacing: .06em;
@@ -114,6 +123,13 @@
 
     <form id="gen-form" novalidate>
       <div id="fields"></div>
+
+      <div class="field">
+        <label for="message">Message draft
+          <span class="key">editable</span></label>
+        <textarea id="message"></textarea>
+      </div>
+
       <button type="submit" class="btn">Generate &amp; Copy Link</button>
     </form>
 
@@ -121,7 +137,8 @@
       <label>Your link</label>
       <div class="url" id="url-out"></div>
       <div class="row">
-        <button type="button" class="btn ghost" id="copy-again">Copy again</button>
+        <button type="button" class="btn ghost" id="copy-again">Copy link again</button>
+        <button type="button" class="btn ghost" id="copy-message">Copy message</button>
         <a class="btn ghost" id="open-link" href="#" target="_blank" rel="noopener">Preview ↗</a>
       </div>
     </div>
@@ -138,6 +155,24 @@
 // The invitation page the generated link opens.
 // 👉 CHANGE THIS if the invitation ever moves to a new host/path.
 const ROOT_URL = "https://shareable-public.ashwix1997.workers.dev/canada_wedding/invitation/index-plain";
+
+// Draft message pre-filled in the textarea. {{name}} is replaced with the
+// Guest name on generate; the invitation link is appended below the marker.
+// 👉 EDIT freely — tweak the wording however you like.
+const MESSAGE_TEMPLATE =
+`Hi {{name}},
+
+Amartha and I would be so happy to have you celebrate our wedding with us.
+
+We've put together a little invitation page with all the details — the where, the when, and everything in between. Please bookmark it, as we'll use the page for alerts, photo sharing, and more on the day itself.
+
+Do RSVP through the page whenever you get a moment. We truly hope you can make it!
+
+With love,
+Ashwin & Amartha`;
+
+// Everything below this line in the textarea is the (re)generated link block.
+const LINK_MARKER = "\n\n— — —\n";
 
 // Each entry: `param` is the query-param key AND the source of truth.
 // Add/remove fields here as the invitation grows to read more params.
@@ -162,6 +197,9 @@ const FIELDS = [
   const urlOut = document.getElementById("url-out");
   const openLink = document.getElementById("open-link");
   const toast = document.getElementById("toast");
+  const message = document.getElementById("message");
+
+  message.value = MESSAGE_TEMPLATE;
 
   // ---- Render form fields from FIELDS ----
   FIELDS.forEach(f => {
@@ -225,11 +263,27 @@ const FIELDS = [
     setTimeout(() => toast.classList.remove("show"), 2200);
   }
 
+  // Fill {{name}} and (re)attach the link block below the marker, preserving
+  // any wording edits above it. On repeat generates, swap the previously
+  // inserted name for the new one so the greeting stays in sync.
+  // ponytail: last-name swap is a plain string replace — if the old name also
+  // appears elsewhere in your edits, it swaps there too. Fine for this tool.
+  let lastName = null;
+  function buildMessage(name, url) {
+    let body = message.value.split(LINK_MARKER)[0];   // drop old link block
+    body = body.replace(/\{\{name\}\}/g, name);       // first generate
+    if (lastName && lastName !== name) body = body.split(lastName).join(name);
+    lastName = name;
+    return body + LINK_MARKER + url;
+  }
+
   async function generate() {
     if (!validate()) { showToast("Please fill in the required fields"); return; }
     const url = buildUrl();
+    const name = (document.getElementById("f-to")?.value || "").trim();
     urlOut.textContent = url;
     openLink.href = url;
+    message.value = buildMessage(name, url);
     result.classList.add("show");
     const copied = await copy(url);
     showToast(copied ? "Link generated & copied ✓" : "Link generated (copy manually)");
@@ -241,6 +295,10 @@ const FIELDS = [
     if (!url) return;
     const copied = await copy(url);
     showToast(copied ? "Copied ✓" : "Copy failed — select manually");
+  });
+  document.getElementById("copy-message").addEventListener("click", async () => {
+    const copied = await copy(message.value);
+    showToast(copied ? "Message copied ✓" : "Copy failed — select manually");
   });
 
   function escapeHtml(s) {
